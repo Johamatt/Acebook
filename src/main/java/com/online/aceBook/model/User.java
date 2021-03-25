@@ -15,11 +15,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class User extends AbstractPersistable<Long>  {
 
- /*   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
-*/
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;

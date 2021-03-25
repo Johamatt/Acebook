@@ -1,10 +1,13 @@
 package com.online.aceBook.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -27,5 +30,10 @@ public class Profile extends AbstractPersistable<Long>  {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@Column(name = "avatar")
+    @Lob
+    @Basic (fetch = FetchType.LAZY)
+    private byte[] profileAvatar;
 	
 }
