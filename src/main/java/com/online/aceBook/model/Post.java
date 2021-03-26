@@ -22,28 +22,33 @@ public class Post extends AbstractPersistable<Long> {
 	*/
 	
 //	@JsonIgnoreProperties ({"users"}) 
+//	@ManyToOne
+//	@JoinColumn(name = "userid")
+//	private User user;
+
+	
 	@ManyToOne
-	@JoinColumn(name = "userid")
-	private User user;
+    private Profile profile;
 	private String message;
 	private Date postDate;
-	
 
 	public Post() {}
 	
-	public Post(User user, String message, Date postDate) {
+	public Post(Profile profile, String message, Date postDate) {
 		super();
-		this.user = user;
+		this.profile = profile;
 		this.message = message;
 		this.postDate = postDate;
 	}
 	
-	public User getUser() {
-		return user;
+
+
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	public String getMessage() {

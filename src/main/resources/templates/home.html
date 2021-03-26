@@ -1,71 +1,98 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
 <title>Insert title here</title>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark">
- <div class="px-2">
-  <a class="navbar-brand" href="#">
-    <img src="../static/images/Acelogo.jfif" th:src="@{images/Acelogo.jfif}" width="45" height="45" class="d-inline-block align-top" alt="">
-    AceBook
-  </a>
-  </div>
-  <div>
-                <form th:action="@{/logout}" method="POST">
-                <input type="submit" value="Logout"></input>
-            </form>
-  </div>
-</nav>
+	<nav class="navbar navbar-dark bg-dark">
+		<div class="px-2">
+			<a class="navbar-brand" href="#"> <img
+				src="../static/images/Acelogo.jfif" th:src="@{images/Acelogo.jfif}"
+				width="45" height="45" class="d-inline-block align-top" alt="">
+				AceBook
+			</a>
+		</div>
+		<div>
+			<form th:action="@{/logout}" method="POST">
+				<input type="submit" value="Logout"></input>
+			</form>
+		</div>
+	</nav>
 
 
-<div class="container-lg h-25">
-<h2 th:text="${content}"></h2>
- <div class="row">
- asd
- </div>
+	<div class="container-lg h-25">
+		<h2 th:text="${content}"></h2>
+		<img class="col-sm-4" th:src="@{/viewfile/{id}(id=${user})}" />
+		<h3>Upload profile picture</h3>
+		<form method="POST" th:action="@{/file/{id}(id=${user})}" enctype="multipart/form-data">
+			<input type="file" name="file" id="file"/><br /> 
+			<input type="submit" value="Submit" />
+		</form>
 
-</div>
+
+	</div>
 
 
 
-<div class="container-sm p-1">
- <div class="row">
- <div class="col-3">
-  <div class="border border-primary pt-4">
+	<div class="container-sm p-1">
+		<div class="row">
+			<div class="col-3">
+				<div class="border border-primary pt-4">
 
-      <h2 class="text-justify text-center ">Friend List</h2>
-      <hr>
-      <ul>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-      </ul>
+					<h2 class="text-justify text-center ">Friend List</h2>
+					<hr>
+					<ul>
+						<li>asd</li>
+						<li>asd</li>
+						<li>asd</li>
+						<li>asd</li>
+						<li>asd</li>
+						<li>asd</li>
+					</ul>
 
-  </div> 
- </div> 
- 
- <div class="col-9">
-   <h1 class="text-center">Feed</h1>
-     <div class="border pt-4">
+				</div>
+			</div>
 
-      <ul>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-       <li>asd</li>
-      </ul>
+			<div class="col-9">
+				<h1 class="text-center">Feed</h1>
+				<div class="border pt-4">
 
-  </div> 
- </div>
- </div>
-</div>
+					<table class="table table-striped">
+						<tbody>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Message</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tr th:each="post : ${posts}">
+							<td th:text="${post.profile.user.fullname}" />
+							<td th:text="${post.message}" />
+							<td th:text="${post.postDate}" />
+							<td th:style="${post.profile.profileAvatar}" />
+						</tbody>
+					</table>
+
+
+
+
+					<div style="margin-top: 400px"></div>
+
+
+					<ul>
+						<li th:each="user : ${userlist}"><a
+							th:href="@{/{id}(id=${user})}"> <span
+								th:text="${user.fullname}"></span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -45,6 +45,14 @@ public class User extends AbstractPersistable<Long>  {
     private Profile accountProfile;
 
 
+	public Profile getAccountProfile() {
+		return accountProfile;
+	}
+
+	public void setAccountProfile(Profile accountProfile) {
+		this.accountProfile = accountProfile;
+	}
+
 	public User() {
     }
 
@@ -101,6 +109,10 @@ public class User extends AbstractPersistable<Long>  {
 	public void setRole(String role) {
 		this.role = role;
 	}	
+	
+	public String getFullname() {
+		return firstname + " " + lastname;
+	}
 
 
 	public String getFirstname() {
@@ -118,5 +130,12 @@ public class User extends AbstractPersistable<Long>  {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
+	@Override
+	public String toString() {
+		return  firstname + "." + lastname + "." + accountProfile.getId();
+	}
+	
+	
 }
 

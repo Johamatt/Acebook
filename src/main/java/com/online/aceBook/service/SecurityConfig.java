@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 		.authorizeRequests().antMatchers("/css/**").permitAll()
+		.antMatchers("/h2-console/**").permitAll()
 		.antMatchers("/register").permitAll()
 		.antMatchers("/images/**").permitAll()
 		.antMatchers("/video/**").permitAll()
@@ -45,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.logout()
 		.permitAll();
+		
+        http.csrf().disable();						//sallii h2
+        http.headers().frameOptions().disable();
 	}
 }
 
