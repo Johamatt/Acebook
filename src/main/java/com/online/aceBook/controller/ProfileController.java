@@ -48,9 +48,7 @@ public class ProfileController {
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public Map<String, Object> home(Principal principal) {
 	    Map<String, Object> model = new HashMap<String, Object>();
-	    model.put("id", UUID.randomUUID().toString());
-	    model.put("content", "Hello " + principal.getName());	
-	    
+	    model.put("id", UUID.randomUUID().toString());  
 	    model.put("file", userRepository.findByUsername(principal.getName()).getAccountProfile().getProfileAvatar());
 	    model.put("user", userRepository.findByUsername(principal.getName()).getId());  
 	    model.put("posts", userRepository.findByUsername(principal.getName()).getAccountProfile().getPost());	      
@@ -61,12 +59,10 @@ public class ProfileController {
 	@RequestMapping(value="/file/{id}", method = RequestMethod.POST)
 	public String save(@PathVariable Long id, @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
 		if (file.getSize() == 0) {
             return "redirect:/home"; 
         }
 		Profile profile = userRepository.findByUsername(principal.getName()).getAccountProfile();
-
 		profile.setProfileAvatar(file.getBytes());
 		profile.setAvatarContentLength(file.getSize());
 		profile.setAvatarContentType(file.getContentType());
@@ -76,15 +72,11 @@ public class ProfileController {
 	
 	@RequestMapping(value="/viewfile/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> viewFile(@PathVariable Long id) {
-    	
-
     	Profile p = userRepository.findById(id).get().getAccountProfile();
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(p.getAvatarContentType()));       
         headers.add("Content-Disposition", "attachment; filename=" + "profilepic");
         headers.setContentLength(p.getAvatarContentLength());
         return new ResponseEntity<>(p.getProfileAvatar(), headers, HttpStatus.CREATED);
-		
-		
 	}
 }

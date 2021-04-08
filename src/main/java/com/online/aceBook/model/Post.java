@@ -12,58 +12,20 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-@Entity
-public class Post extends AbstractPersistable<Long> {
-	
-	/*
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long Id;
-	*/
-	
-//	@JsonIgnoreProperties ({"users"}) 
-//	@ManyToOne
-//	@JoinColumn(name = "userid")
-//	private User user;
 
-	
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Post extends AbstractPersistable<Long> {
+
 	@ManyToOne
     private Profile profile;
 	private String message;
 	private Date postDate;
-
-	public Post() {}
-	
-	public Post(Profile profile, String message, Date postDate) {
-		super();
-		this.profile = profile;
-		this.message = message;
-		this.postDate = postDate;
-	}
-	
-
-
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Date getPostDate() {
-		return postDate;
-	}
-
-	public void setPostDate(Date postDate) {
-		this.postDate = postDate;
-	}
 }
