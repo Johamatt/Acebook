@@ -28,14 +28,7 @@ public class PostController {
 	
 	@RequestMapping(value="/savepost/{id}", method = RequestMethod.POST)
 	public String save(@PathVariable Long id, @ModelAttribute Post post) throws IOException {
-		
-		
 		postRepository.save(post);
-		System.out.println(post);
-		System.out.println(post);
-		System.out.println(post);
-		System.out.println(post);
-		System.out.println(post);
 		return "redirect:/" + userRepository.getOne(id);
 	}
 	

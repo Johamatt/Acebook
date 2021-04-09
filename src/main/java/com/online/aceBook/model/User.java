@@ -1,8 +1,12 @@
 package com.online.aceBook.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
@@ -37,6 +41,11 @@ public class User extends AbstractPersistable<Long>  {
     
     @OneToOne
     private Profile accountProfile;
+    
+    
+    @OneToMany(mappedBy="sentfrom")
+    private List<Post> post = new ArrayList<>();
+    
 
 	public String getFullname() {
 		return firstname + " " + lastname;

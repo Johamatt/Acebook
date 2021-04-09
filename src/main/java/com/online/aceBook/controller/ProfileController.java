@@ -45,10 +45,12 @@ public class ProfileController {
 	public Map<String, Object> home(Principal principal) {
 	    Map<String, Object> model = new HashMap<String, Object>();
 	    model.put("file", userRepository.findByUsername(principal.getName()).getAccountProfile().getProfileAvatar());
-	    model.put("user", userRepository.findByUsername(principal.getName()).getId());  
+	    model.put("user", userRepository.findByUsername(principal.getName()));
 	    model.put("posts", userRepository.findByUsername(principal.getName()).getAccountProfile().getPost());	      
 	    model.put("userlist", userRepository.findAll());	    
+	    model.put("post", new Post());
 	    System.out.println(userRepository.findByUsername(principal.getName()).getId());
+	    
 	    return model;
 	}
 	

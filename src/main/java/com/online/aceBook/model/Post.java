@@ -22,4 +22,7 @@ public class Post extends AbstractPersistable<Long> {
 	private String message;
 	private Date postDate;
 	
+	@ManyToOne
+	private User sentfrom;
+	
 }

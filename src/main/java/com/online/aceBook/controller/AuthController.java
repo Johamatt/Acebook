@@ -1,5 +1,8 @@
 package com.online.aceBook.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.online.aceBook.model.Profile;
+import com.online.aceBook.model.Post;
 import com.online.aceBook.model.User;
 import com.online.aceBook.repository.ProfileRepository;
 import com.online.aceBook.repository.UserRepository;
@@ -45,6 +49,8 @@ public class AuthController {
         if (userRepository.findByUsername(username) != null) {
             return "redirect:/login";
         }
+        
+        List<Post> posts = new ArrayList<Post>();
                     
         Profile profile = new Profile();
         profileRepository.save(profile);
@@ -56,7 +62,8 @@ public class AuthController {
             lastname,
             email,
             "USER",
-            profile
+            profile,
+            posts
             );
         
             profile.setUser(user);

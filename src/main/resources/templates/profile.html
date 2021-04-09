@@ -5,6 +5,14 @@
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
 <title>Acebook</title>
+
+<script>
+
+	
+
+
+</script>
+
 </head>
 <body>
 
@@ -70,13 +78,13 @@
 						<tbody>
 						<thead>
 							<tr>
-								<th>User</th>
+								<th>Sended by</th>
 								<th>Message</th>
 								<th>Date</th>
 							</tr>
 						</thead>
 						<tr th:each="post : ${posts}">
-							<td th:text="${post.profile.user.fullname}" />
+							<td th:text="${post.sentfrom.fullname}" />
 							<td th:text="${post.message}" />
 							<td th:text="${post.postDate}" />
 							<td th:style="${post.profile.profileAvatar}" />
@@ -85,7 +93,7 @@
 					
 					
 					
-	<form method='POST' th:action="@{/savepost/{id}(id=${loggeduser.id})}" th:object= ${post}>
+	<form method='POST' th:action="@{/savepost/{id}(id=${user.id})}" th:object= ${post}>
       <h1>Post message</h1>
       <hr>
       
@@ -94,7 +102,10 @@
         <input type="text" th:field="*{message}" id="message" placeholder="Message"> 																							
       	<label for="profile"></label>
        <input type="hidden" placeholder="" name="profile" th:value="${user.AccountProfile.id}">    
-       <input type="hidden"> 																							
+
+       <label for="sentfrom"></label>
+       <input type="hidden" placeholder="" name="sentfrom" th:value="${loggeduser.id}">    
+																							
       <br>
       <button class="btn btn-success" type="submit">Add</button>
 	</form>  
