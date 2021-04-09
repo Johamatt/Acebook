@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.online.aceBook.model.Post;
 import com.online.aceBook.model.Profile;
 
-public interface PostRepository extends CrudRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 }

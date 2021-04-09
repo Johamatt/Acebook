@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.online.aceBook.model.Profile;
 
-public interface ProfileRepository extends CrudRepository<Profile, Long> {
+public interface ProfileRepository extends JpaRepository<Profile, Long> {
 }

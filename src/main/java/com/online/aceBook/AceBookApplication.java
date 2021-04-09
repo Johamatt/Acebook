@@ -1,13 +1,8 @@
 package com.online.aceBook;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Date;
-
-import javax.imageio.ImageIO;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

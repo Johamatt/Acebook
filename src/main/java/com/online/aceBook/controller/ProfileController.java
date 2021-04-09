@@ -1,16 +1,11 @@
 package com.online.aceBook.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,13 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.online.aceBook.model.Post;
 import com.online.aceBook.model.Profile;
 import com.online.aceBook.repository.ProfileRepository;
 import com.online.aceBook.repository.UserRepository;
@@ -48,11 +42,11 @@ public class ProfileController {
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public Map<String, Object> home(Principal principal) {
 	    Map<String, Object> model = new HashMap<String, Object>();
-	    model.put("id", UUID.randomUUID().toString());  
 	    model.put("file", userRepository.findByUsername(principal.getName()).getAccountProfile().getProfileAvatar());
 	    model.put("user", userRepository.findByUsername(principal.getName()).getId());  
 	    model.put("posts", userRepository.findByUsername(principal.getName()).getAccountProfile().getPost());	      
-	    model.put("userlist", userRepository.findAll());	    	
+	    model.put("userlist", userRepository.findAll());	    
+	    System.out.println(userRepository.findByUsername(principal.getName()).getId());
 	    return model;
 	}
 	
@@ -79,4 +73,17 @@ public class ProfileController {
         headers.setContentLength(p.getAvatarContentLength());
         return new ResponseEntity<>(p.getProfileAvatar(), headers, HttpStatus.CREATED);
 	}
+    
+    @RequestMapping(value="/{user}", method = RequestMethod.GET)
+    public String getProfile(@PathVariable String user, Model model, Principal principal) {
+    	Long userId = Long.parseLong(user.split("\\.")[2]);  	    	
+    	if (userId == userRepository.findByUsername(principal.getName()).getId()) {
+    		return "redirect:/home";	
+    	} 	
+    	System.out.println(userRepository.getOne(userId));
+    	model.addAttribute("user", userRepository.getOne(userId));
+    	model.addAttribute("file", userRepository.getOne(userId).getAccountProfile().getProfileAvatar());
+    	model.addAttribute("posts", userRepository.getOne(userId).getAccountProfile().getPost());
+    		return "profile";
+    }   
 }

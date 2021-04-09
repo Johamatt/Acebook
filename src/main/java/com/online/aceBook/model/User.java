@@ -44,7 +44,7 @@ public class User extends AbstractPersistable<Long>  {
 
 	@Override
 	public String toString() {
-		return  firstname + "." + lastname + "." + accountProfile.getId();
+		return  firstname + "." + lastname + "." + this.getId();
 	}
 }
 
