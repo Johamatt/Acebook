@@ -21,4 +21,5 @@ public class Post extends AbstractPersistable<Long> {
     private Profile profile;
 	private String message;
 	private Date postDate;
+	
 }

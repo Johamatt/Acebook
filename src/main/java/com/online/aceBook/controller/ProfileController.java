@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.online.aceBook.model.Post;
 import com.online.aceBook.model.Profile;
 import com.online.aceBook.repository.ProfileRepository;
 import com.online.aceBook.repository.UserRepository;
@@ -80,10 +82,13 @@ public class ProfileController {
     	if (userId == userRepository.findByUsername(principal.getName()).getId()) {
     		return "redirect:/home";	
     	} 	
-    	System.out.println(userRepository.getOne(userId));
+    	model.addAttribute("loggeduser", userRepository.findByUsername(principal.getName()));
+    	
+    	
     	model.addAttribute("user", userRepository.getOne(userId));
     	model.addAttribute("file", userRepository.getOne(userId).getAccountProfile().getProfileAvatar());
     	model.addAttribute("posts", userRepository.getOne(userId).getAccountProfile().getPost());
+    	model.addAttribute("post", new Post());
     		return "profile";
     }   
 }
