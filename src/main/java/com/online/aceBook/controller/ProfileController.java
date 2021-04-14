@@ -4,6 +4,7 @@ package com.online.aceBook.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.online.aceBook.model.Post;
 import com.online.aceBook.model.Profile;
+import com.online.aceBook.model.User;
 import com.online.aceBook.repository.ProfileRepository;
 import com.online.aceBook.repository.UserRepository;
 
@@ -43,11 +45,18 @@ public class ProfileController {
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public Map<String, Object> home(Principal principal) {
 	    Map<String, Object> model = new HashMap<String, Object>();
-	    model.put("file", userRepository.findByUsername(principal.getName()).getAccountProfile().getProfileAvatar());
-	    model.put("user", userRepository.findByUsername(principal.getName()));
-	    model.put("posts", userRepository.findByUsername(principal.getName()).getAccountProfile().getPost());	      
+	    
+	    User user = userRepository.findByUsername(principal.getName());
+	    
+	    
+	    model.put("file", user.getAccountProfile().getProfileAvatar());
+	    model.put("user", user);
+	    model.put("posts", user.getAccountProfile().getPost());	      
 	    model.put("userlist", userRepository.findAll());	    
 	    model.put("post", new Post());
+	    model.put("friendlist", user.getFriend());
+
+	    
 	    return model;
 	}
 	

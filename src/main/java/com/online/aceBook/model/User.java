@@ -1,11 +1,10 @@
 package com.online.aceBook.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -47,12 +46,11 @@ public class User extends AbstractPersistable<Long>  {
     private List<Post> post = new ArrayList<>();
    
     
-    /*
-     * 
-     *     @OneToMany(mappedBy="friendlist")
-    private List<User> friends = new ArrayList<>();
-     */
-
+    
+    @ManyToMany
+    private List<User> friend = new ArrayList<>();
+    
+    
 	public String getFullname() {
 		return firstname + " " + lastname;
 	}

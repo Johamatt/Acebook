@@ -24,9 +24,7 @@
         </div>
         <div class="col-8">
           <div style="padding: 2rem">
-            <p>First name: <span th:text="${user.fullname}"></span></p>
-            <p>Last name: </p>
-            <p>Email: </p>
+            <p>Name: <span th:text="${user.fullname}"></span></p>
           </div>
         </div>
       </div>
@@ -37,14 +35,9 @@
         <div class="col-3">
           <h2 class="text-justify text-center ">Friend List</h2>
           <hr>
-          <ul>
-            <li>asd</li>
-            <li>asd</li>
-            <li>asd</li>
-            <li>asd</li>
-            <li>asd</li>
-            <li>asd</li>
-          </ul>
+        <ul th:each="friend : ${friendlist}">
+          <li th:text="${friend.fullname}">asd</li>
+        </ul>
         </div>
 
         <div class="col-9">
@@ -67,7 +60,7 @@
               </tbody>
             </table>
 
-            <form method='POST' th:action="@{/savepost/{id}(id=${user.id})}" th:object=${post}>
+            <form method='POST' th:action="@{/savepost/{friendid}(friendid=${user.id})}" th:object=${post}>
               <h1>Post message</h1>
               <hr>
 

@@ -59,8 +59,26 @@ public class AceBookApplication {
 			
 			List<Post> posts = new ArrayList<>();
 			
-			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "Joha", "matt", "user1@gmail.com", "USER", p1, posts);
-			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "admin", "ad", "admin@gmail.com", "ADMIN", p2, posts);
+			List<User> friendlist = new ArrayList<>();
+			
+			User user1 = new User("user", 
+					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", 
+					"Joha", 
+					"matt", 
+					"user1@gmail.com", 
+					"USER", 
+					p1, 
+					posts,
+					friendlist);
+			User user2 = new User("admin", 
+					"$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", 
+					"admin",
+					"ad", 
+					"admin@gmail.com", 
+					"ADMIN", 
+					p2, 
+					posts,
+					friendlist);
 
 			
 			userRepo.save(user1);

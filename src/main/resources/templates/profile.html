@@ -28,11 +28,7 @@
       </div>
       <div class="col-8">
         <div style="padding: 2rem">
-          <p>
-            First name: <span th:text="${user.firstname}"></span> <span th:text="${user.lastname}"></span>
-          </p>
-          <p>Last name:</p>
-          <p>Email:</p>
+          <p>Name: <span th:text="${user.firstname}"></span> <span th:text="${user.lastname}"></span></p>
         </div>
       </div>
     </div>
@@ -42,13 +38,8 @@
       <div class="col-3">
         <h2 class="text-justify text-center ">Friend List</h2>
         <hr>
-        <ul>
-          <li>asd</li>
-          <li>asd</li>
-          <li>asd</li>
-          <li>asd</li>
-          <li>asd</li>
-          <li>asd</li>
+        <ul th:each="friend : ${friendlist}">
+          <li th:text="${friend.fullname}">asd</li>
         </ul>
       </div>
       <div class="col-9">
@@ -87,6 +78,19 @@
             <li th:each="user : ${userlist}"><a th:href="@{/{id}(id=${user})}"> <span th:text="${user.fullname}"></span>
               </a></li>
           </ul>
+          
+          
+          
+          
+          <form method="POST" th:action="@{/savefriend/{userid}/{friendid}(userid=${user.id}, friendid=${loggeduser.id})}" th:object=${friend}>
+    
+    
+            <input type="hidden" name="friendid" th:value="${user.id}">         
+            <input type="hidden" name="userid" th:value="${loggeduser.id}">
+            
+            <button class="btn btn-success" type="submit">Add friend</button>
+          </form>
+          
         </div>
       </div>
     </div>
