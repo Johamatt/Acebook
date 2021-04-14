@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<meta charset="ISO-8859-1">
+</head>
+<body>
+  <nav th:fragment="nav" class="navbar navbar-dark bg-dark">
+	<div class="px-2">
+	  <a class="navbar-brand" href="#"> <img
+		src="../static/images/Acelogo.jfif" th:src="@{images/Acelogo.jfif}"
+		width="45" height="45" class="d-inline-block align-top" alt="">
+		AceBook
+	  </a>
+	</div>
+	<div>
+	  <form th:action="@{/logout}" method="POST">
+		<input type="submit" value="Logout"></input>
+	  </form>
+	</div>
+  </nav>
+</body>
+</html>

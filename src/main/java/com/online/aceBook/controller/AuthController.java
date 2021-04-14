@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,27 +45,22 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-    public String create(@RequestParam String username,  @RequestParam String password, @RequestParam String firstname,
-            @RequestParam String lastname, @RequestParam String email) {
-        if (userRepository.findByUsername(username) != null) {
+    public String create(@ModelAttribute User user) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             return "redirect:/login";
         }
         
-        List<Post> posts = new ArrayList<Post>();
-                    
+        List<Post> posts = new ArrayList<Post>();                  
         Profile profile = new Profile();
         profileRepository.save(profile);
         
-        User user = new User(
-            username, 
-            passwordEncoder.encode(password),
-            firstname, 
-            lastname,
-            email,
-            "USER",
-            profile,
-            posts
-            );
+        user.setPost(posts);
+        user.setAccountProfile(profile);
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+        user.setRole("USER");
+        
+        
+
         
             profile.setUser(user);
             userRepository.save(user);            

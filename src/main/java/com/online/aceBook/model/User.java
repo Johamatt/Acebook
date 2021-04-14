@@ -45,7 +45,13 @@ public class User extends AbstractPersistable<Long>  {
     
     @OneToMany(mappedBy="sentfrom")
     private List<Post> post = new ArrayList<>();
+   
     
+    /*
+     * 
+     *     @OneToMany(mappedBy="friendlist")
+    private List<User> friends = new ArrayList<>();
+     */
 
 	public String getFullname() {
 		return firstname + " " + lastname;

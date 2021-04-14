@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,8 +40,6 @@ public class ProfileController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-
-	
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public Map<String, Object> home(Principal principal) {
 	    Map<String, Object> model = new HashMap<String, Object>();
@@ -53,7 +52,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="/file/{id}", method = RequestMethod.POST)
-	public String save(@PathVariable Long id, @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
+	public String save(@Validated @PathVariable Long id, @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (file.getSize() == 0) {
             return "redirect:/home"; 
@@ -82,9 +81,7 @@ public class ProfileController {
     	if (userId == userRepository.findByUsername(principal.getName()).getId()) {
     		return "redirect:/home";	
     	} 	
-    	model.addAttribute("loggeduser", userRepository.findByUsername(principal.getName()));
-    	
-    	
+    	model.addAttribute("loggeduser", userRepository.findByUsername(principal.getName()));  	
     	model.addAttribute("user", userRepository.getOne(userId));
     	model.addAttribute("file", userRepository.getOne(userId).getAccountProfile().getProfileAvatar());
     	model.addAttribute("posts", userRepository.getOne(userId).getAccountProfile().getPost());
