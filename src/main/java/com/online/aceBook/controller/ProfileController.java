@@ -49,8 +49,6 @@ public class ProfileController {
 	    model.put("posts", userRepository.findByUsername(principal.getName()).getAccountProfile().getPost());	      
 	    model.put("userlist", userRepository.findAll());	    
 	    model.put("post", new Post());
-	    System.out.println(userRepository.findByUsername(principal.getName()).getId());
-	    
 	    return model;
 	}
 	

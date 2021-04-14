@@ -6,10 +6,15 @@
 	th:href="@{css/bootstrap.min.css}" />
 <title>Acebook</title>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 
-	
 
+$(document).ready(function(){
+    $("select.category").change(function(){
+        document.getElementById("category").value = book;
+    });
+});
 
 </script>
 
@@ -86,7 +91,7 @@
 						<tr th:each="post : ${posts}">
 							<td th:text="${post.sentfrom.fullname}" />
 							<td th:text="${post.message}" />
-							<td th:text="${post.postDate}" />
+							<td th:text="${post.postDateStr}" />
 							<td th:style="${post.profile.profileAvatar}" />
 						</tbody>
 					</table>
@@ -96,15 +101,12 @@
 	<form method='POST' th:action="@{/savepost/{id}(id=${user.id})}" th:object= ${post}>
       <h1>Post message</h1>
       <hr>
-      
-	      
-        <label for="message"><b>Message</b></label>
-        <input type="text" th:field="*{message}" id="message" placeholder="Message"> 																							
-      	<label for="profile"></label>
-       <input type="hidden" placeholder="" name="profile" th:value="${user.AccountProfile.id}">    
+      					
+        															
 
-       <label for="sentfrom"></label>
-       <input type="hidden" placeholder="" name="sentfrom" th:value="${loggeduser.id}">    
+       <input type="hidden" placeholder="" name="profile" th:value="${user.AccountProfile.id}">    
+       <input type="hidden" placeholder="" name="sentfrom" th:value="${loggeduser.id}">      
+       <textarea rows="4" cols="50" name="message" th:value="*{message}" id="message" placeholder="Message">asd</textarea>
 																							
       <br>
       <button class="btn btn-success" type="submit">Add</button>

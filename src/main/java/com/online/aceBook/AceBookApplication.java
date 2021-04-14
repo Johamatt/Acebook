@@ -2,6 +2,7 @@ package com.online.aceBook;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +67,7 @@ public class AceBookApplication {
 			userRepo.save(user2);			
 			
 			Date date = new Date();
+			
 			Post post = new Post(p1, "affff", date, user2);
 			postRepo.save(post);
 			

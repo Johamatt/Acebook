@@ -2,6 +2,7 @@ package com.online.aceBook.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,9 @@ public class PostController {
 	
 	@RequestMapping(value="/savepost/{id}", method = RequestMethod.POST)
 	public String save(@PathVariable Long id, @ModelAttribute Post post) throws IOException {
+		
+		Date date = new Date();
+		post.setPostDate(date);
 		postRepository.save(post);
 		return "redirect:/" + userRepository.getOne(id);
 	}
