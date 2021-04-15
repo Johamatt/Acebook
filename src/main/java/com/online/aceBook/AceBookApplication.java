@@ -2,7 +2,6 @@ package com.online.aceBook;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,58 +34,72 @@ public class AceBookApplication {
 		return (args) -> {
 			
 			
-						
+			/* < - - - Create profile entities with default avatar - - - > */
+			
 			Profile p1 = new Profile();
 			Profile p2 = new Profile();
+			Profile p3 = new Profile();
 			
-
 		      File f = (new File("src/main/resources/static/images/default-avatar.png"));
 		      byte[] fileContent = Files.readAllBytes(f.toPath());
 		      
-		      p1.setProfileAvatar(fileContent);
+		        p1.setProfileAvatar(fileContent);
 				p1.setAvatarContentType("image/png");
 				p1.setAvatarContentLength(10056L);
-				
-				
+	
 				p2.setProfileAvatar(fileContent);
 				p2.setAvatarContentType("image/png");
 				p2.setAvatarContentLength(10056L);
-			
-			    
-			
+				
+				p3.setProfileAvatar(fileContent);
+				p3.setAvatarContentType("image/png");
+				p3.setAvatarContentLength(10056L);
+					
 			profileRepo.save(p1);
 			profileRepo.save(p2);
+			profileRepo.save(p3);
 			
-			List<Post> posts = new ArrayList<>();
+			/* < - - - Create user entities - - - > */
 			
-			List<User> friendlist = new ArrayList<>();
-			
+			List<Post> posts = new ArrayList<>();		
+			List<User> friendlist = new ArrayList<>();		
 			User user1 = new User("user", 
 					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", 
-					"Joha", 
-					"matt", 
-					"user1@gmail.com", 
+					"John", 
+					"Doe", 
+					"Johndoe@gmail.com", 
 					"USER", 
 					p1, 
 					posts,
 					friendlist);
 			User user2 = new User("admin", 
 					"$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", 
-					"admin",
-					"ad", 
-					"admin@gmail.com", 
+					"Admin",
+					"", 
+					"acebook21@gmail.com", 
 					"ADMIN", 
 					p2, 
 					posts,
+					friendlist);		
+			User user3 = new User("user1", 
+					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", 
+					"Jane",
+					"Doe", 
+					"Janedoe@gmail.com", 
+					"ADMIN", 
+					p3, 
+					posts,
 					friendlist);
-
 			
 			userRepo.save(user1);
-			userRepo.save(user2);			
+			userRepo.save(user2);	
+			userRepo.save(user3);	
 			
-			Date date = new Date();
 			
-			Post post = new Post(p1, "affff", date, user2);
+			/* < - - - Add profile comment - - - > */
+			
+			Date date = new Date();		
+			Post post = new Post(p1, "Hi John, how you doing?", date, user3);
 			postRepo.save(post);
 			
 			
