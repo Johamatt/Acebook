@@ -5,7 +5,19 @@
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
     <title>Acebook</title>
   </head>
-
+  
+  <script th:inline="javascript">
+    function sendDelete(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.onload = function () {
+            let responseURL = xhttp.responseURL;
+            console.log("Redirecting to:", responseURL);
+            window.location.replace(responseURL);
+        };
+        xhttp.send();
+    }
+</script>
   <body>
     <nav th:replace="fragments/fragments :: nav"></nav>
     <div class="container-lg" style="margin-top:15px; background-color:aqua">
@@ -20,7 +32,6 @@
               <input type="submit" value="Submit" />
             </form>
           </div>
-
         </div>
         <div class="col-8">
           <div style="padding: 2rem">
@@ -29,17 +40,18 @@
         </div>
       </div>
     </div>
-
     <div class="container-sm p-1">
       <div class="row">
         <div class="col-3">
           <h2 class="text-justify text-center ">Friend List</h2>
           <hr>
-        <ul th:each="friend : ${friendlist}">
-          <li th:text="${friend.fullname}">asd</li>
+        <ul th:each="friend : ${friendlist}">       
+          <li style="list-style: none">
+          	<img th:src="@{/viewfile/{id}(id=${friend.id})}" style="max-width: 40" />
+            <a th:href="@{/{id}(id=${friend})}" th:text="${friend.fullname}"></a>
+          </li>
         </ul>
         </div>
-
         <div class="col-9">
           <h1 class="text-center">Feed</h1>
           <div class="border pt-4">
@@ -57,9 +69,9 @@
                   <td th:text="${post.message}" />
                   <td th:text="${post.postDateStr}" />
                   <td th:style="${post.profile.profileAvatar}" />
+                  <td><a type="button" th:with="url = @{/deletepost/{id}(id=${post.id})}" th:onclick="sendDelete([[${url}]])" class="btn btn-xs btn-danger">Delete</a></td>	
               </tbody>
             </table>
-
             <form method='POST' th:action="@{/savepost/{friendid}(friendid=${user.id})}" th:object=${post}>
               <h1>Post message</h1>
               <hr>
@@ -83,5 +95,4 @@
       </div>
     </div>
   </body>
-
   </html>

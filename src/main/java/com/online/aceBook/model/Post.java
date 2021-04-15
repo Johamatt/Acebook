@@ -1,17 +1,16 @@
 package com.online.aceBook.model;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
-
+import org.springframework.format.annotation.DateTimeFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+
 @Entity
 @Getter
 @Setter
@@ -20,20 +19,17 @@ import lombok.Setter;
 public class Post extends AbstractPersistable<Long> {
 
 	@ManyToOne
-    private Profile profile;
+	private Profile profile;
 	private String message;
-	private Date postDate;
 	
+	@DateTimeFormat(pattern = "dd-M-yyyy HH:mm:ss")
+	private Date postDate;
+
 	@ManyToOne
 	private User sentfrom;
-	
-	
+
 	public String getPostDateStr() {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");  
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 		return formatter.format(postDate);
 	}
-
-	
 }

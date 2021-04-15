@@ -9,48 +9,25 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
-
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	
-    @Autowired
-    public void condifureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
-	
-    @Autowired
-    private UserDetailServiceImpl userDetailsService;
+
+	@Autowired
+	public void condifureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+	}
+
+	@Autowired
+	private UserDetailServiceImpl userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		
-		http
-		.authorizeRequests().antMatchers("/css/**").permitAll()
-		.antMatchers("/h2-console/**").permitAll()
-		.antMatchers("/register").permitAll()
-		.antMatchers("/images/**").permitAll()
-		.antMatchers("/video/**").permitAll()
-		.antMatchers("/viewfile/{id}").permitAll()
-		.and()
-		.authorizeRequests().anyRequest().authenticated()
-		
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/home", true)
-		.permitAll()
-		.and()
-		.logout()
-		.permitAll();
-		
-        http.csrf().disable();						//sallii h2
-        http.headers().frameOptions().disable();
+		http.authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**").permitAll()
+				.antMatchers("/register").permitAll().antMatchers("/images/**").permitAll().antMatchers("/video/**")
+				.permitAll().antMatchers("/viewfile/{id}").permitAll().and().authorizeRequests().anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/home", true).permitAll().and().logout()
+				.permitAll().and().csrf().disable().headers().frameOptions().disable(); 
 	}
 }
-
-

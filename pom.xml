@@ -14,7 +14,6 @@
 	<name>aceBook</name>
 	<description>Facebook of it&apos;s early times</description>
 	<properties>
-		<java.version>11</java.version>
 	</properties>
 <dependencies>
 <dependency>
