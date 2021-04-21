@@ -8,6 +8,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,15 +43,19 @@ public class User extends AbstractPersistable<Long>  {
     @Column(name = "role", nullable = false)
     private String role;
     
+    
+    @JsonIgnoreProperties({"post", "profileAvatar", "avatarContentType", "avatarContentLength"})
+
     @OneToOne
     private Profile accountProfile;
     
     
+    @JsonIgnore
     @OneToMany(mappedBy="sentfrom")
     private List<Post> post = new ArrayList<>();
    
     
-    
+    @JsonIgnore
     @ManyToMany
     private List<User> friend = new ArrayList<>();
     

@@ -24,10 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/register").permitAll().antMatchers("/images/**").permitAll().antMatchers("/video/**")
-				.permitAll().antMatchers("/viewfile/{id}").permitAll().and().authorizeRequests().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/home", true).permitAll().and().logout()
-				.permitAll().and().csrf().disable().headers().frameOptions().disable(); 
+		http.authorizeRequests().
+		antMatchers("/css/**").permitAll().
+		antMatchers("/h2-console/**").permitAll()
+		.antMatchers("/register").permitAll().
+		antMatchers("/images/**").permitAll().
+		antMatchers("/video/**").permitAll().
+		antMatchers("/viewfile/{id}").permitAll().
+		antMatchers("/api/**").permitAll().
+		and().authorizeRequests().anyRequest().authenticated().
+		and().formLogin().loginPage("/login").defaultSuccessUrl("/home", true).permitAll().
+		and().logout().permitAll().
+		and().csrf().disable().headers().frameOptions().disable(); 
 	}
 }

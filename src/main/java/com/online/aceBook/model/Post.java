@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +22,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Post extends AbstractPersistable<Long> {
 
+	
+    @JsonIgnore
 	@ManyToOne
 	private Profile profile;
 	private String message;
@@ -25,6 +31,8 @@ public class Post extends AbstractPersistable<Long> {
 	@DateTimeFormat(pattern = "dd-M-yyyy HH:mm:ss")
 	private Date postDate;
 
+
+	@JsonIgnoreProperties("accountProfile")
 	@ManyToOne
 	private User sentfrom;
 

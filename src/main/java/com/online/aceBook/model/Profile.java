@@ -13,6 +13,9 @@ import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +24,12 @@ import lombok.Setter;
 @Entity
 public class Profile extends AbstractPersistable<Long>  {
 	
+	
+	@JsonIgnore
 	@OneToOne(mappedBy = "accountProfile")
 	private User user;
 	
+
 	@OneToMany(mappedBy = "profile")
 	private List<Post> post = new ArrayList<>();
 	
