@@ -1,34 +1,37 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
     <title>Acebook</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("").change(function () {
-                
-            });
-        });
-    </script>
-</head>
+ </head>
 <body>
 
-  <nav th:replace="fragments/fragments :: nav"></nav>
-
-
-  
-  
+  <nav th:replace="fragments/fragments :: nav2"></nav>
   <div class="container-lg" style="margin-top: 15px">
+  
     <div class=row>
-      <div class="col-4">
+      <div class="col-4 md-4">
         <img th:src="@{/viewfile/{id}(id=${user.id})}" alt="profilepicture" style="max-width: 300" />
         <div style="margin-top: 15px"></div>
       </div>
-      <div class="col-8">
+
+      
+      <div class="col-8 md-4"  >
         <div style="padding: 2rem">
           <p>Name: <span th:text="${user.firstname}"></span> <span th:text="${user.lastname}"></span></p>
+          
+           <form method="POST" th:action="@{/savefriend/{userid}/{friendid}(userid=${user.id}, friendid=${loggeduser.id})}" th:object=${friend}
+           th:if="${!#lists.contains(loggeduserfriendlist, {user})}"> <!--  TODO -->
+    
+    		
+
+    
+            <input type="hidden" name="friendid" th:value="${user.id}">         
+            <input type="hidden" name="userid" th:value="${loggeduser.id}">
+            
+            <button class="btn btn-success" type="submit">Add friend</button>
+          </form>
         </div>
       </div>
     </div>
@@ -67,9 +70,9 @@
             <input type="hidden" placeholder="" name="profile" th:value="${user.AccountProfile.id}"> <input
               type="hidden" placeholder="" name="sentfrom" th:value="${loggeduser.id}">
             <textarea rows="4" cols="50" name="message" th:value="*{message}" id="message"
-              placeholder="Message">asd</textarea>
+              placeholder="Message"></textarea>
             <br>
-            <button class="btn btn-success" type="submit">Add</button>
+            <button class="btn btn-success" type="submit">Send</button>
           </form>
 
           <div style="margin-top: 400px"></div>
@@ -82,14 +85,7 @@
           
           
           
-          <form method="POST" th:action="@{/savefriend/{userid}/{friendid}(userid=${user.id}, friendid=${loggeduser.id})}" th:object=${friend}>
-    
-    
-            <input type="hidden" name="friendid" th:value="${user.id}">         
-            <input type="hidden" name="userid" th:value="${loggeduser.id}">
-            
-            <button class="btn btn-success" type="submit">Add friend</button>
-          </form>
+
           
         </div>
       </div>

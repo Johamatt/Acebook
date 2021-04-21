@@ -63,7 +63,7 @@ public class AceBookApplication {
 			
 			List<Post> posts = new ArrayList<>();		
 			List<User> friendlist = new ArrayList<>();		
-			User user1 = new User("user", 
+			User john = new User("user", 
 					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", 
 					"John", 
 					"Doe", 
@@ -81,28 +81,45 @@ public class AceBookApplication {
 					p2, 
 					posts,
 					friendlist);		
-			User user3 = new User("user1", 
+			User jane = new User("user1", 
 					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", 
 					"Jane",
 					"Doe", 
 					"Janedoe@gmail.com", 
-					"ADMIN", 
+					"USER", 
 					p3, 
 					posts,
 					friendlist);
 			
-			userRepo.save(user1);
+			userRepo.save(john);
 			userRepo.save(user2);	
-			userRepo.save(user3);	
+			userRepo.save(jane);	
 			
 			
 			/* < - - - Add profile comment - - - > */
 			
 			Date date = new Date();		
-			Post post = new Post(p1, "Hi John, how you doing?", date, user3);
+			Post post = new Post(p1, "Hi John, how you doing?", date, jane);
 			postRepo.save(post);
 			
 			
+			/* < - - - Add friendship - - - > */
+			
+			List<User> johnfriendlist = john.getFriend();
+			List<User> janefriendlist = jane.getFriend();
+			
+			johnfriendlist.add(jane);
+			userRepo.save(john);
+			
+			janefriendlist.remove(0);
+			janefriendlist.add(john);
+			userRepo.save(jane);
+			
+			
+			
+			
+			
+
 			
 			
 		};

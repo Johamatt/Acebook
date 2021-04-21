@@ -47,7 +47,7 @@ public class FriendController {
 		user.setFriend(userFriendList);
 		userRepository.save(user);
 		
-		return "redirect:/" + userRepository.getOne(userid);
+		return "redirect:/home";
 	}
 
 }

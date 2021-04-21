@@ -1,23 +1,52 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>Acebook</title>
 <meta charset="ISO-8859-1">
 </head>
 <body>
-  <nav th:fragment="nav" class="navbar navbar-dark bg-dark">
-	<div class="px-2">
-	  <a class="navbar-brand" href="#"> <img
-		src="../static/images/Acelogo.jfif" th:src="@{images/Acelogo.jfif}"
-		width="45" height="45" class="d-inline-block align-top" alt="">
-		AceBook
-	  </a>
-	</div>
-	<div>
-	  <form th:action="@{/logout}" method="POST">
-		<input type="submit" value="Logout"></input>
-	  </form>
-	</div>
-  </nav>
+	
+
+	
+		<nav class="navbar navbar-dark bg-dark"
+		th:fragment="nav2">
+		<a class="navbar-brand" href="/home"><h1>AceBook</h1> </a>
+
+		<div style="margin-right: 10px" >
+			<form class="form-inline my-2 my-lg-0" th:action="@{/search}" method="GET" >
+				<input class="form-control mr-lg-2" type="search"placeholder="Search users" aria-label="Search" th:name="searchtxt" style="min-width: 400px">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+
+		<div style="left: 0">
+			<form th:action="@{/logout}" method="POST"
+				style="display: table-cell; vertical-align: middle">
+				<input type="submit" value="Logout" class="btn btn-secondary" ></input>
+			</form>
+		</div>
+
+	</nav>
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

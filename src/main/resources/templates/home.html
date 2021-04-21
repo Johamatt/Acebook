@@ -1,98 +1,118 @@
-  <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-    <title>Acebook</title>
-  </head>
-  
-  <script th:inline="javascript">
-    function sendDelete(url) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", url, true);
-        xhttp.onload = function () {
-            let responseURL = xhttp.responseURL;
-            console.log("Redirecting to:", responseURL);
-            window.location.replace(responseURL);
-        };
-        xhttp.send();
-    }
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>Acebook</title>
+</head>
+
+<script th:inline="javascript">
+	function sendDelete(url) {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("DELETE", url, true);
+		xhttp.onload = function() {
+			let responseURL = xhttp.responseURL;
+			console.log("Redirecting to:", responseURL);
+			window.location.replace(responseURL);
+		};
+		xhttp.send();
+	}
 </script>
-  <body>
-    <nav th:replace="fragments/fragments :: nav"></nav>
-    <div class="container-lg" style="margin-top:15px; background-color:aqua">
-      <div class=row>
-        <div class="col-4">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<body>
+	<nav th:replace="fragments/fragments :: nav2"></nav>
 
-          <img th:src="@{/viewfile/{id}(id=${user.id})}" style="max-width: 300" />
-          <div style="margin-top: 15px">
-            <h5>Upload profile picture</h5>
-            <form method="POST" th:action="@{/file/{id}(id=${user.id})}" enctype="multipart/form-data">
-              <input type="file" name="file" id="file" /><br />
-              <input type="submit" value="Submit" />
-            </form>
-          </div>
-        </div>
-        <div class="col-8">
-          <div style="padding: 2rem">
-            <p>Name: <span th:text="${user.fullname}"></span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-sm p-1">
-      <div class="row">
-        <div class="col-3">
-          <h2 class="text-justify text-center ">Friend List</h2>
-          <hr>
-        <ul th:each="friend : ${friendlist}">       
-          <li style="list-style: none">
-          	<img th:src="@{/viewfile/{id}(id=${friend.id})}" style="max-width: 40" />
-            <a th:href="@{/{id}(id=${friend})}" th:text="${friend.fullname}"></a>
-          </li>
-        </ul>
-        </div>
-        <div class="col-9">
-          <h1 class="text-center">Feed</h1>
-          <div class="border pt-4">
-            <table class="table table-striped">
-              <tbody>
-                <thead>
-                  <tr>
-                    <th>Sended by</th>
-                    <th>Message</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tr th:each="post : ${posts}">
-                  <td th:text="${post.sentfrom.fullname}" />
-                  <td th:text="${post.message}" />
-                  <td th:text="${post.postDateStr}" />
-                  <td th:style="${post.profile.profileAvatar}" />
-                  <td><a type="button" th:with="url = @{/deletepost/{id}(id=${post.id})}" th:onclick="sendDelete([[${url}]])" class="btn btn-xs btn-danger">Delete</a></td>	
-              </tbody>
-            </table>
-            <form method='POST' th:action="@{/savepost/{friendid}(friendid=${user.id})}" th:object=${post}>
-              <h1>Post message</h1>
-              <hr>
 
-              <input type="hidden" placeholder="" name="profile" th:value="${user.AccountProfile.id}">
-              <input type="hidden" placeholder="" name="sentfrom" th:value="${user.id}">
-              <textarea rows="4" cols="50" name="message" th:value="*{message}" id="message"
-                placeholder="Message"></textarea>
-              <br>
-              <button class="btn btn-success" type="submit">Add</button>
-            </form>
-            
-            <div style="margin-top: 400px"></div>
-            <ul>
-              <li th:each="user : ${userlist}"><a th:href="@{/{id}(id=${user})}"> <span
-                    th:text="${user.fullname}"></span>
-                </a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-  </html>
+
+
+
+
+
+	<div class="container-lg"
+		style="margin-top: 15px; background-color: aqua">
+		<div class=row>
+			<div class="col-4">
+
+				<img th:src="@{/viewfile/{id}(id=${user.id})}"
+					style="max-width: 300" />
+				<div style="margin-top: 15px">
+					<h5>Upload profile picture</h5>
+					<form method="POST" th:action="@{/file/{id}(id=${user.id})}"
+						enctype="multipart/form-data">
+						<input type="file" name="file" id="file" /><br /> <input
+							type="submit" value="Submit" />
+					</form>
+				</div>
+			</div>
+			<div class="col-8">
+				<div style="padding: 2rem">
+					<p>
+					
+						Name: <span th:text="${user.fullname}"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-sm p-1">
+		<div class="row">
+			<div class="col-3">
+				<h2 class="text-justify text-center ">Friend List</h2>
+				<hr>
+				<ul th:each="friend : ${friendlist}">
+					<li style="list-style: none"><img
+						th:src="@{/viewfile/{id}(id=${friend.id})}" style="max-width: 40" />
+						<a th:href="@{/{id}(id=${friend})}" th:text="${friend.fullname}"></a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-9">
+				<h1 class="text-center">Feed</h1>
+				<div class="border pt-4">
+					<table class="table table-striped">
+						<tbody>
+						<thead>
+							<tr>
+								<th>Sended by</th>
+								<th>Message</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tr th:each="post : ${posts}">
+							<td th:text="${post.sentfrom.fullname}" />
+							<td th:text="${post.message}" />
+							<td th:text="${post.postDateStr}" />
+							<td th:style="${post.profile.profileAvatar}" />
+							<td><a type="button"
+								th:with="url = @{/deletepost/{id}(id=${post.id})}"
+								th:onclick="sendDelete([[${url}]])"
+								class="btn btn-xs btn-danger">Delete</a></td>
+						</tbody>
+					</table>
+					<form method='POST'
+						th:action="@{/savepost/{friendid}(friendid=${user.id})}"
+						th:object=${post}>
+						<h1>Post message</h1>
+						<hr>
+
+						<input type="hidden" placeholder="" name="profile"
+							th:value="${user.AccountProfile.id}"> <input
+							type="hidden" placeholder="" name="sentfrom"
+							th:value="${user.id}">
+						<textarea rows="4" cols="50" name="message" th:value="*{message}"
+							id="message" placeholder="Message"></textarea>
+						<br>
+						<button class="btn btn-success" type="submit">Add</button>
+					</form>
+
+					<div style="margin-top: 400px"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

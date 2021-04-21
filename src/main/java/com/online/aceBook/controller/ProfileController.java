@@ -83,6 +83,8 @@ public class ProfileController {
 		if (userId == userRepository.findByUsername(principal.getName()).getId()) {
 			return "redirect:/home";
 		}
+		
+		model.addAttribute("loggeduserfriendlist", userRepository.findByUsername(principal.getName()));
 		model.addAttribute("loggeduser", userRepository.findByUsername(principal.getName()));
 		model.addAttribute("user", userRepository.getOne(userId));
 		model.addAttribute("file", userRepository.getOne(userId).getAccountProfile().getProfileAvatar());
